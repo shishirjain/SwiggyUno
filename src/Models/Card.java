@@ -1,26 +1,24 @@
 package Models;
 
 public class Card {
-    private final Rank rank;
-    private final Suit suit;
+    private String suit;
+    private int rank;
 
-    public Card(Rank rank, Suit suit) {
-        this.rank = rank;
+    public Card(String suit, int rank) {
         this.suit = suit;
+        this.rank = rank;
     }
 
-    public Rank getRank() {
-        return rank;
-    }
-
-    public Suit getSuit() {
+    public String getSuit() {
         return suit;
     }
 
-    public String toString(){
-        return rank.toString()+" "+suit.toString();
+    public int getRank() {
+        return rank;
     }
 
-    public void setCard(Card card) {
+    @Override
+    public String toString() {
+        return rank + " of " + suit;
     }
 }
