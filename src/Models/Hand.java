@@ -18,7 +18,7 @@ public class Hand {
     public void addCards(Card card){
         this.cards.add(card);
     }
-    public void  removeCard(Card card){
+    public void  playCard(Card card){
         cards.remove(card);
 
     }
@@ -33,4 +33,6 @@ public class Hand {
         }
         return false;
     }
+
+
 }

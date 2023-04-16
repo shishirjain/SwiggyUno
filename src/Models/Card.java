@@ -20,4 +20,7 @@ public class Card {
     public String toString(){
         return rank.toString()+" "+suit.toString();
     }
+
+    public void setCard(Card card) {
+    }
 }
