@@ -22,10 +22,8 @@ public class Main {
             for (int i = 0; i < numOfPlayer; i++) {
                 int s = i + 1 ;
                 System.out.println("Enter the name of " +s+" players");
-              //  String name = sc.nextLine();
-               // playerNames[i]=name;
                 playerNames[i]=sc.nextLine();
-                //sc.nextLine();
+
             }
 
             //String[] playerNames = {"Player 1", "Player 2", "Player 3", "Player 4"};

@@ -59,55 +59,31 @@ public class Game {
                     System.out.println("The draw pile is empty. The game is a draw.");
                     gameEnd = true;
                     break;
+                } else if (card.getSuit().equals(topCard.getSuit())||card.getRank().equals(topCard.getRank())) {
+                    System.out.println(currentPlayer+" drew a " + card);
+                    discardPile.add(card);//if the drawn card is same as top card then play it.
+                    currentPlayerIndex=(currentPlayerIndex+1)%players.size();
+                    continue;
                 } else {
                     System.out.println("Your hand: " + currentPlayer.getHand());
-                    System.out.println("You drew a " + card);
+                    System.out.println("You drew a " + card);//if drawn card is not same as topcard store it in hand
                     currentPlayer.addCardToHand(card);
-                    //cardPlayed=true;
+                    currentPlayerIndex=(currentPlayerIndex+1)%players.size();
+                    continue;
                 }
             }
-            for(int i=0;i<currentPlayer.getHand().size();i++){
-                if(currentPlayer.getHand().get(i).getRank().equals(topCard.getRank())||
-                        currentPlayer.getHand().get(i).getSuit().equals(topCard.getSuit())){
-                    present=true;
-                    break;
-                }
-            }
+
             boolean cardPlayed = false;
-            while (!cardPlayed && present) {
+            while (!cardPlayed ) {
                 System.out.println("Your hand: " + currentPlayer.getHand());
                 System.out.println("Enter the index of the card you want to play");
                 Scanner scanner = new Scanner(System.in);
                 int cardIndex = scanner.nextInt();
-                while(cardIndex>currentPlayer.getHand().size()-1|| cardIndex<0){
+
+                while(cardIndex>currentPlayer.getHand().size()-1|| cardIndex<0){//checking the authenticity of input
                     System.out.println("invalid index!! Enter the index in range");
-                    //scanner.nextLine();
                     cardIndex= scanner.nextInt();
                 }
-               /* boolean present=false;
-                Card topCard = discardPile.get(discardPile.size() - 1);
-                for(int i=0;i<currentPlayer.getHand().size();i++){
-                    if(currentPlayer.getHand().get(i).getRank().equals(topCard.getRank())||
-                    currentPlayer.getHand().get(i).getSuit().equals(topCard.getSuit())){
-                        present=true;
-                        break;
-                    }
-                }
-                if (!present) {
-
-                    Card card = deck.dealCard();// Draw a card from the deck
-                    if (card == null) {
-                        System.out.println("The draw pile is empty. The game is a draw.");
-                        gameEnd = true;
-                        break;
-                    } else {
-                        System.out.println("You drew a " + card);
-                        currentPlayer.addCardToHand(card);
-                        cardPlayed=true;
-                    }
-                }
-                else {
-                */
                     Card selectedCard = currentPlayer.getHand().get(cardIndex);
                      topCard = discardPile.get(discardPile.size() - 1);
                     if (selectedCard.getSuit().equals(topCard.getSuit()) || selectedCard.getRank() == topCard.getRank()) {
@@ -133,10 +109,8 @@ public class Game {
                                     }
                                     else {
                                         System.out.println(players.get(currentPlayerIndex)+" drew a " + drawnCard);
-                                        //currentPlayerIndex = (currentPlayerIndex + 1 ) % players.size();
                                         players.get(currentPlayerIndex).addCardToHand(drawnCard);
-                                        //currentPlayer.addCardToHand(drawnCard);
-                                        //currentPlayerIndex--;
+
                                     }
                                 }
                                 //currentPlayerIndex++;
@@ -156,8 +130,6 @@ public class Game {
                                         System.out.println(players.get(currentPlayerIndex)+" drew a " + drawnCard);
                                         //currentPlayerIndex = (currentPlayerIndex + 1 ) % players.size();
                                         players.get(currentPlayerIndex).addCardToHand(drawnCard);
-                                        //currentPlayer.addCardToHand(drawnCard);
-                                        //currentPlayerIndex--;
                                     }
                                 }
                                 //currentPlayerIndex++;
