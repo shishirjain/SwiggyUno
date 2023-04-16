@@ -4,28 +4,26 @@ import java.util.List;
 
 public class Player {
     private String name;
-    private List<Card> hand;
+    private Hand hand;
 
-    public Player(String name, List<Card> hand) {
+    public Player(String name) {
         this.name = name;
-        this.hand = hand;
+        this.hand =new Hand();
     }
 
     public String getName() {
         return name;
     }
 
-    public List<Card> getHand() {
-        return hand;
-    }
-    public void addcard(Card card){
-        hand.add(card);
-    }
-    public Card playCard(int index) {
-        return hand.remove(index);
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public boolean hasCards() {
-        return !hand.isEmpty();
+    public Hand getHand() {
+        return hand;
+    }
+
+    public void setHand(Hand hand) {
+        this.hand = hand;
     }
 }

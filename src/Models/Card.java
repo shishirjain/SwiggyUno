@@ -1,22 +1,23 @@
 package Models;
 
 public class Card {
-    private int rank;
-    private Character suit;
+    private final Rank rank;
+    private final Suit suit;
 
-    public Card(int rank, Character suit) {
+    public Card(Rank rank, Suit suit) {
         this.rank = rank;
         this.suit = suit;
     }
 
-    public int getRank() {
+    public Rank getRank() {
         return rank;
     }
 
-    public Character getSuit() {
+    public Suit getSuit() {
         return suit;
     }
+
     public String toString(){
-        return rank+" "+suit;
+        return rank.toString()+" "+suit.toString();
     }
 }
