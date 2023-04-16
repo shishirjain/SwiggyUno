@@ -48,6 +48,11 @@ public class Game {
                 System.out.println("Enter the index of the card you want to play, or -1 to draw a card:");
                 Scanner scanner = new Scanner(System.in);
                 int cardIndex = scanner.nextInt();
+                while(cardIndex>currentPlayer.getHand().size()-1){
+                    System.out.println("invalid index!! Enter the index in range");
+                    //scanner.nextLine();
+                    cardIndex= scanner.nextInt();
+                }
 
                 if (cardIndex == -1) {
 
@@ -59,8 +64,10 @@ public class Game {
                     } else {
                         System.out.println("You drew a " + card);
                         currentPlayer.addCardToHand(card);
+                        cardPlayed=true;
                     }
-                } else {
+                }
+                else {
                     Card selectedCard = currentPlayer.getHand().get(cardIndex);
                     Card topCard = discardPile.get(discardPile.size() - 1);
                     if (selectedCard.getSuit().equals(topCard.getSuit()) || selectedCard.getRank() == topCard.getRank()) {
@@ -74,7 +81,8 @@ public class Game {
                                 currentPlayerIndex = (currentPlayerIndex + direction * 2) % players.size();
                                 break;
                             case Jack: // Jack
-                                System.out.println("Draw 4 cards");
+                                scanner.nextLine();
+                                System.out.println(players.get((currentPlayerIndex + direction ) % players.size())+" Draw 4 cards");
                                 for (int i = 0; i < 4; i++) {
                                     Card drawnCard = deck.dealCard();
                                     if (drawnCard == null) {
@@ -83,30 +91,38 @@ public class Game {
                                         break;
                                     } else {
                                         System.out.println("You drew a " + drawnCard);
-                                        currentPlayer.addCardToHand(drawnCard);
+                                        currentPlayerIndex = (currentPlayerIndex + direction ) % players.size();
+                                        players.get(currentPlayerIndex).addCardToHand(drawnCard);
+                                        //currentPlayer.addCardToHand(drawnCard);
+                                        currentPlayerIndex--;
                                     }
                                 }
                                 break;
                             case Q: // Queen
-                                System.out.println("Draw 2 cards");
+                                scanner.nextLine();
+                                System.out.println(players.get((currentPlayerIndex + direction ) % players.size())+" Draw 4 cards");
                                 for (int i = 0; i < 2; i++) {
                                     Card drawnCard = deck.dealCard();
                                     if (drawnCard == null) {
                                         System.out.println("The draw pile is empty. The game is a draw.");
                                         gameEnd = true;
                                         break;
-                                    } else {
+                                    }
+                                    else {
                                         System.out.println("You drew a " + drawnCard);
-                                        currentPlayer.addCardToHand(drawnCard);
+                                        currentPlayerIndex = (currentPlayerIndex + direction ) % players.size();
+                                        players.get(currentPlayerIndex).addCardToHand(drawnCard);
+                                        //currentPlayer.addCardToHand(drawnCard);
+                                        currentPlayerIndex--;
                                     }
                                 }
                                 break;
                             case K: // King
                                 System.out.println("Reverse the order of play");
                                 direction = -direction;
-                                break;
-                            default:
-                                break;
+                               // break;
+                            //default:
+                               // break;
                         }
 
                         if (currentPlayer.getHand().isEmpty()) {
@@ -116,7 +132,8 @@ public class Game {
                         }
 
                         cardPlayed = true;
-                    } else {
+                    }
+                    else {
                         System.out.println("You cannot play that card.");
                     }
                 }

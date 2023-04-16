@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
+
         System.out.println("Hello world!");
         Scanner sc=new Scanner(System.in);
         System.out.println("Enter the number of players. The number of players can not be more than 4");
