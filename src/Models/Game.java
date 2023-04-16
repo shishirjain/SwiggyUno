@@ -120,9 +120,9 @@ public class Game {
                             case K: // King
                                 System.out.println("Reverse the order of play");
                                 direction = -direction;
-                               // break;
-                            //default:
-                               // break;
+                               break;
+                            default:
+                               break;
                         }
 
                         if (currentPlayer.getHand().isEmpty()) {
