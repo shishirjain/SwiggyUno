@@ -23,7 +23,7 @@ public class Game {
         direction = 1;
 
         // Deal cards to players
-        for (int i = 0; i < playerNames.length; i++) {
+        for (int i = 0; i < 5; i++) {
             for (Player player : players) {
                 Card card = deck.dealCard();
                 player.addCardToHand(card);
@@ -69,11 +69,11 @@ public class Game {
                         discardPile.add(selectedCard);
 
                         switch (selectedCard.getRank()) {
-                            case 1: // Ace
+                            case Ace: // Ace
                                 System.out.println("Skip the next player in turn");
                                 currentPlayerIndex = (currentPlayerIndex + direction * 2) % players.size();
                                 break;
-                            case 11: // Jack
+                            case Jack: // Jack
                                 System.out.println("Draw 4 cards");
                                 for (int i = 0; i < 4; i++) {
                                     Card drawnCard = deck.dealCard();
@@ -87,7 +87,7 @@ public class Game {
                                     }
                                 }
                                 break;
-                            case 12: // Queen
+                            case Q: // Queen
                                 System.out.println("Draw 2 cards");
                                 for (int i = 0; i < 2; i++) {
                                     Card drawnCard = deck.dealCard();
@@ -101,7 +101,7 @@ public class Game {
                                     }
                                 }
                                 break;
-                            case 13: // King
+                            case K: // King
                                 System.out.println("Reverse the order of play");
                                 direction = -direction;
                                 break;
