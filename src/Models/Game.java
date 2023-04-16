@@ -1,6 +1,7 @@
 package Models;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
@@ -42,8 +43,38 @@ public class Game {
             System.out.println("\n" + currentPlayer.getName() + "'s turn");
             System.out.println("Top card on discard pile: " + discardPile.get(discardPile.size() - 1));
 
+            boolean present=false;
+            Card topCard = discardPile.get(discardPile.size() - 1);
+            for(int i=0;i<currentPlayer.getHand().size();i++){
+                if(currentPlayer.getHand().get(i).getRank().equals(topCard.getRank())||
+                        currentPlayer.getHand().get(i).getSuit().equals(topCard.getSuit())){
+                    present=true;
+                    break;
+                }
+            }
+            if (!present) {
+
+                Card card = deck.dealCard();// Draw a card from the deck
+                if (card == null) {
+                    System.out.println("The draw pile is empty. The game is a draw.");
+                    gameEnd = true;
+                    break;
+                } else {
+                    System.out.println("Your hand: " + currentPlayer.getHand());
+                    System.out.println("You drew a " + card);
+                    currentPlayer.addCardToHand(card);
+                    //cardPlayed=true;
+                }
+            }
+            for(int i=0;i<currentPlayer.getHand().size();i++){
+                if(currentPlayer.getHand().get(i).getRank().equals(topCard.getRank())||
+                        currentPlayer.getHand().get(i).getSuit().equals(topCard.getSuit())){
+                    present=true;
+                    break;
+                }
+            }
             boolean cardPlayed = false;
-            while (!cardPlayed) {
+            while (!cardPlayed && present) {
                 System.out.println("Your hand: " + currentPlayer.getHand());
                 System.out.println("Enter the index of the card you want to play");
                 Scanner scanner = new Scanner(System.in);
@@ -53,7 +84,7 @@ public class Game {
                     //scanner.nextLine();
                     cardIndex= scanner.nextInt();
                 }
-                boolean present=false;
+               /* boolean present=false;
                 Card topCard = discardPile.get(discardPile.size() - 1);
                 for(int i=0;i<currentPlayer.getHand().size();i++){
                     if(currentPlayer.getHand().get(i).getRank().equals(topCard.getRank())||
@@ -76,6 +107,7 @@ public class Game {
                     }
                 }
                 else {
+                */
                     Card selectedCard = currentPlayer.getHand().get(cardIndex);
                      topCard = discardPile.get(discardPile.size() - 1);
                     if (selectedCard.getSuit().equals(topCard.getSuit()) || selectedCard.getRank() == topCard.getRank()) {
@@ -90,25 +122,29 @@ public class Game {
                                 break;
                             case Jack: // Jack
                                 scanner.nextLine();
-                                System.out.println(players.get((currentPlayerIndex + direction ) % players.size())+" Draw 4 cards");
+                                currentPlayerIndex = (currentPlayerIndex + 1 ) % players.size();
+                                System.out.println(players.get((currentPlayerIndex  ) % players.size())+" Draw 4 cards");
                                 for (int i = 0; i < 4; i++) {
                                     Card drawnCard = deck.dealCard();
                                     if (drawnCard == null) {
                                         System.out.println("The draw pile is empty. The game is a draw.");
                                         gameEnd = true;
                                         break;
-                                    } else {
-                                        System.out.println("You drew a " + drawnCard);
-                                        currentPlayerIndex = (currentPlayerIndex + direction ) % players.size();
+                                    }
+                                    else {
+                                        System.out.println(players.get(currentPlayerIndex)+" drew a " + drawnCard);
+                                        //currentPlayerIndex = (currentPlayerIndex + 1 ) % players.size();
                                         players.get(currentPlayerIndex).addCardToHand(drawnCard);
                                         //currentPlayer.addCardToHand(drawnCard);
-                                        currentPlayerIndex--;
+                                        //currentPlayerIndex--;
                                     }
                                 }
+                                //currentPlayerIndex++;
                                 break;
                             case Q: // Queen
                                 scanner.nextLine();
-                                System.out.println(players.get((currentPlayerIndex + direction ) % players.size())+" Draw 4 cards");
+                                currentPlayerIndex = (currentPlayerIndex + 1 ) % players.size();
+                                System.out.println(players.get((currentPlayerIndex  ) % players.size())+" Draw 2 cards");
                                 for (int i = 0; i < 2; i++) {
                                     Card drawnCard = deck.dealCard();
                                     if (drawnCard == null) {
@@ -117,24 +153,28 @@ public class Game {
                                         break;
                                     }
                                     else {
-                                        System.out.println("You drew a " + drawnCard);
-                                        currentPlayerIndex = (currentPlayerIndex + direction ) % players.size();
+                                        System.out.println(players.get(currentPlayerIndex)+" drew a " + drawnCard);
+                                        //currentPlayerIndex = (currentPlayerIndex + 1 ) % players.size();
                                         players.get(currentPlayerIndex).addCardToHand(drawnCard);
                                         //currentPlayer.addCardToHand(drawnCard);
-                                        currentPlayerIndex--;
+                                        //currentPlayerIndex--;
                                     }
                                 }
+                                //currentPlayerIndex++;
                                 break;
                             case K: // King
                                 System.out.println("Reverse the order of play");
-                                direction = -direction;
+                                Collections.reverse(players);
+                                currentPlayerIndex=players.size()-currentPlayerIndex-1;
+                                //direction = -direction;
+
                                break;
                             default:
                                break;
                         }
 
                         if (currentPlayer.getHand().isEmpty()) {
-                            System.out.println(currentPlayer.getName() + " has no more cards. They win!");
+                            System.out.println(currentPlayer.getName() + " has no more cards."+currentPlayer.getName()+"  win!");
                             gameEnd = true;
                             break;
                         }
@@ -144,11 +184,14 @@ public class Game {
                     else {
                         System.out.println("You cannot play that card.");
                     }
-                }
+                //}
             }
 
             // Move to the next player
-            currentPlayerIndex = (currentPlayerIndex + direction) % players.size();
+
+
+            currentPlayerIndex = (currentPlayerIndex+1) % players.size();
+
         }
     }
 }
