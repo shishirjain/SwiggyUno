@@ -78,7 +78,7 @@ public class Game {
                         switch (selectedCard.getRank()) {
                             case Ace: // Ace
                                 System.out.println("Skip the next player in turn");
-                                currentPlayerIndex = (currentPlayerIndex + direction * 2) % players.size();
+                                currentPlayerIndex = (currentPlayerIndex + direction ) % players.size();
                                 break;
                             case Jack: // Jack
                                 scanner.nextLine();
