@@ -45,16 +45,24 @@ public class Game {
             boolean cardPlayed = false;
             while (!cardPlayed) {
                 System.out.println("Your hand: " + currentPlayer.getHand());
-                System.out.println("Enter the index of the card you want to play, or -1 to draw a card:");
+                System.out.println("Enter the index of the card you want to play");
                 Scanner scanner = new Scanner(System.in);
                 int cardIndex = scanner.nextInt();
-                while(cardIndex>currentPlayer.getHand().size()-1){
+                while(cardIndex>currentPlayer.getHand().size()-1|| cardIndex<0){
                     System.out.println("invalid index!! Enter the index in range");
                     //scanner.nextLine();
                     cardIndex= scanner.nextInt();
                 }
-
-                if (cardIndex == -1) {
+                boolean present=false;
+                Card topCard = discardPile.get(discardPile.size() - 1);
+                for(int i=0;i<currentPlayer.getHand().size();i++){
+                    if(currentPlayer.getHand().get(i).getRank().equals(topCard.getRank())||
+                    currentPlayer.getHand().get(i).getSuit().equals(topCard.getSuit())){
+                        present=true;
+                        break;
+                    }
+                }
+                if (!present) {
 
                     Card card = deck.dealCard();// Draw a card from the deck
                     if (card == null) {
@@ -69,7 +77,7 @@ public class Game {
                 }
                 else {
                     Card selectedCard = currentPlayer.getHand().get(cardIndex);
-                    Card topCard = discardPile.get(discardPile.size() - 1);
+                     topCard = discardPile.get(discardPile.size() - 1);
                     if (selectedCard.getSuit().equals(topCard.getSuit()) || selectedCard.getRank() == topCard.getRank()) {
                         System.out.println("You played a " + selectedCard);
                         currentPlayer.removeCardFromHand(selectedCard);
