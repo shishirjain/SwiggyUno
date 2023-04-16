@@ -26,3 +26,6 @@ Jacks(J): +4
 
 NOTE: actions are not stackable i.e. if Q is played by player 1 then player two draws two cards and cannot play a Q from his hand on that turn even if available
 
+//
+**How to Play****?**//
+Enter name of playe in players srring array and run the main
